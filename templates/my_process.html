@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+
+  <head>
+    <title>Process</title>
+  </head>
+
+  <body>
+    <h1>${worklog_report.task_obj.Headline}</h1>
+    <div id="content" class="roadmap">
+    <ul class="milestones">
+    <li py:for="roadmap in worklog_report.Roadmaps" class="milestone">
+          <div class="info">
+              <h2><a href="${roadmap.allState_url}">Processing: <font color="AA0000">${roadmap.Name}</font></a></h2>
+              <table class="progress" >
+              <tr>
+                  <td class="closed" style="width:${roadmap.closedState_px}px"><a href="${roadmap.closedState_url}" title="${roadmap.closedState}/${roadmap.allState} finished"></a></td>
+                 <td class="open" style="width:${roadmap.activeState_px}px"><a href="${roadmap.activeState_url}" title="${roadmap.activeState}/${roadmap.allState} active"></a></td>
+               </tr>
+          </table>
+          <p class="percent">${roadmap.closedPercent}%  
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a py:if="roadmap.closedPercent!=100 and worklog_report.task_obj.State=='Submitted'" href="${SiteRoot}/task/process?taskid=${worklog_report.task_obj.ID}${chr(38)}action=mail${chr(38)}agent=${roadmap.Name}" >SendMail</a>
+        </p>
+  <dl>
+    <dt>Number of tasks::</dt><dd></dd>
+        <dt><a href="${roadmap.closedState_url}">finished:</a></dt>
+          <dd><a href="${roadmap.closedState_url}">${roadmap.closedState}</a></dd>
+        <dt><a href="${roadmap.activeState_url}">active:</a></dt>
+          <dd><a href="${roadmap.activeState_url}">${roadmap.activeState}</a></dd>
+    <dt><a href="${roadmap.allState_url}">Total:</a></dt>
+      <dd><a href="${roadmap.allState_url}">${roadmap.allState}</a></dd>
+  </dl>
+  </div>
+  </li>
+</ul>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+  <head>
+    <title>Project Settings</title>
+      <script>
+      function selectall() { 
+        if ($("#SelectProjectSet").attr("checked")==true)
+        { 
+           $(".SelectProject").attr("checked",true);
+        }
+        else
+        { 
+           $(".SelectProject").attr("checked",'');
+        } 
+} 
+      function unselectall() { 
+           $("#SelectProjectSet").attr("checked",'');
+        } 
+    </script>
+  </head>
+
+  <body>
+
+<DIV style=" border: 0px outset #996;width:910px;position: relative;margin-left:0px;margin-right:auto;">
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/home">Home </a>
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/report?">Query </a>
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/myproject">myProject </a>
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/submitrate">SubmitRate </a>
+&nbsp;|&nbsp;
+</DIV>
+
+<br /><br />
+
+<div id="main">
+
+<div  id="content" class="admin">
+
+<div  id="tabcontent">
+ <h2>my Projects</h2>
+   <table><tr><td>
+           <UL>
+                <LI py:for="row in idata_mysetting.Projects">${row}</LI>
+           </UL>    
+   </td></tr>
+</table>
+<br /><br /><br />
+<h2>all Projects</h2>
+<form class="mod" id="Form" method="post" action="">
+  <fieldset style="width:90%">
+  <input   type="checkbox"  name="SelectProjectSet"  id="SelectProjectSet"   onclick="javascript:selectall();"/>  ALL <br />
+<py:for each="project in idata_mysetting.ALLProjects">
+<input   type="checkbox"  name="SelectProject" class="SelectProject" value="${project}"  checked="${project in idata_mysetting.Projects or None}" onclick="javascript:unselectall();"/>${project}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</py:for>
+</fieldset>
+<br /><input type="submit" name="add_to_my_Project"  value="Update" />
+</form>
+
+</div>
+</div>
+</div>
+  </body>
+
+</html>

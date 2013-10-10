@@ -1,0 +1,125 @@
+﻿
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+  <head>
+    <title>iManage - iData</title>
+  <script>
+  $(document).ready(function()
+  {
+        $('#field_YearMonth_Start').datepicker({dateFormat:'yy-mm'});
+        $('#field_YearMonth_End').datepicker({dateFormat:'yy-mm'});
+        $('#field_YearMonth_Team').datepicker({dateFormat:'yy-mm'});
+        ${worklog_report.column};
+        ${worklog_report.column_team};
+  });
+
+  </script>
+  </head>
+<body>
+
+<DIV style=" border: 0px outset #996;width:910px;position: relative;margin-left:0px;margin-right:auto;">
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/home">Home </a>
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/report?">Query </a>
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/myproject">myProject </a>
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/submitrate">SubmitRate </a>
+&nbsp;|&nbsp;
+</DIV>
+
+<br /><br />
+
+<DIV py:if="worklog_report.ym_current_user" style="border: 0px outset #996;width:90%;position: relative;margin-left:20px;margin-right:auto;">
+   <form  class="mod" id="SubmitForm" method="post" action="">
+   <table  id="myTodoTable1" name="myTodoTable1"  width="90%" align="left" >
+	<tr>
+        <td ><B>my Worklog</B></td>
+        <td >开始年月</td>
+        <td > <input type="text" id="field_YearMonth_Start" name="field_YearMonth_Start" size="10" value=""/></td>  
+        <td >结束年月</td>
+        <td > <input type="text" id="field_YearMonth_End" name="field_YearMonth_End" size="10" value=""/></td>  
+		<td > <input type="submit" value="Submit Query" name="Submit_Query" id="Submit_Query" /> </td>
+   </tr>
+    </table>
+   </form>
+</DIV>
+
+<DIV py:if="worklog_report.ym_current_user" style="border: 0px outset #996;width:90%;position: relative;margin-left:20px;margin-right:auto;">
+  <table  id="myTodoTable" name="myTodoTable"   style="width: 95%;" align="left"  class="listing"> 
+  <tr>
+     <td style="width: 100%;">
+           <div id="container_column" style="width: 100%; height: ${worklog_report.Height}px; margin-left:0px;"></div>
+    </td >
+   </tr>
+   <tr>
+  <td >
+        
+   </td >
+   </tr>
+   </table>
+</DIV>   
+<DIV py:if="worklog_report.ym_current_user" style="border: 0px outset #996;width:90%;position: relative;margin-left:20px;margin-right:auto;">
+   <table  class="listing"  id="myTodoTable" name="myTodoTable">
+       <tr>
+                 <th>%</th>
+                 <th py:for="a_prj in worklog_report.ym_current_user_prj">${a_prj}</th>
+       </tr>
+        <tr py:for="row in worklog_report.ym_current_user">
+            <td width="100px">${row['ym'] }</td>
+            <td py:for="a_prj in worklog_report.ym_current_user_prj">
+                    <label py:if="a_prj in row['data'].keys()">${row['data'][a_prj]*100}</label>
+            </td>
+        </tr>
+    </table>
+  </DIV>  
+
+  <br /><br /><br />  <br /><br /><br />
+<DIV py:if="worklog_report.ym_myteam" style="border: 0px outset #996;width:90%;position: relative;margin-left:20px;margin-right:auto;">
+   <form  class="mod" id="SubmitForm" method="post" action="">
+   <table  id="myTodoTable1" name="myTodoTable1"  width="90%" align="left" >
+	<tr>
+        <td ><B>my Team</B></td>
+        <td >年月</td>
+        <td > <input type="text" id="field_YearMonth_Team" name="field_YearMonth_Team" size="10" value="${worklog_report.ym_myteam_date}"/></td>  
+		<td > <input type="submit" value="Submit Query" name="Submit_Query_Team" id="Submit_Query_Team" /> </td>
+   </tr>
+    </table>
+   </form>
+</DIV>
+<DIV py:if="worklog_report.ym_myteam" style="border: 0px outset #996;width:90%;position: relative;margin-left:20px;margin-right:auto;">
+  <table  id="myTodoTable" name="myTodoTable"   style="width: 95%;" align="left"  class="listing"> 
+  <tr>
+     <td style="width: 100%;">
+           <div id="container_column_team" style="width: 100%; height: ${worklog_report.Height}px; margin-left:0px;"></div>
+    </td >
+   </tr>
+   <tr>
+  <td >
+        
+   </td >
+   </tr>
+   </table>
+</DIV> 
+
+<DIV py:if="worklog_report.ym_myteam" style="border: 0px outset #996;width:90%;position: relative;margin-left:20px;margin-right:auto;">
+   <table  class="listing"  id="myTodoTable" name="myTodoTable">
+       <tr>
+                 <th>%</th>
+                 <th py:for="a_prj in worklog_report.ym_myteam_prj">${a_prj}</th>
+       </tr>
+        <tr py:for="row in worklog_report.ym_myteam">
+            <td width="100px">${row['username'] }</td>
+            <td py:for="a_prj in worklog_report.ym_myteam_prj">
+                    <label py:if="a_prj in row['data'].keys()">${row['data'][a_prj]*100}</label>
+            </td>
+        </tr>
+    </table>
+  </DIV>  
+  
+<br /><br /><br /><br /><br /><br />
+
+</body>
+</html>

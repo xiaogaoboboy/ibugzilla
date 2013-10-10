@@ -1,0 +1,247 @@
+
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+  <head>
+    <title>iTask</title>
+  <script>
+
+      var userlist = [   
+        ${UserListTip}  
+    ];
+    
+  $(document).ready(function() {
+    reminder_type_change();
+    $("#EmailTo").autocomplete(userlist); 
+    $('#RemindStartDate').datetimepicker({dateFormat:'yy-mm-dd'});
+    $('#RemindEndDate').datetimepicker({dateFormat:'yy-mm-dd'});
+    $('#myAssignedTable').dataTable({ "aaSorting": [[ 0, "desc" ]],"sPaginationType": "full_numbers","bJQueryUI": true});
+	 $("#SubmitForm").validate({
+		rules: {
+			reminder_Headline: {
+				required: true,
+				minlength: 5
+			},
+			reminder_ProductName: {
+				required: true
+			},
+        RemindInterval: {
+				number: true
+			},
+			reminder_Owner: {
+				required: true
+			}
+		},
+		messages: {
+			reminder_Headline: {
+				required: "Please enter a Headline",
+				minlength: "Your Headline must consist of at least 5 characters"
+			},
+			reminder_ProductName: {
+				required: "Please enter Product"
+			},
+        RemindInterval: {
+				 number: "Please enter a digit"
+			},
+        reminder_Owner: {
+            required: "Please enter a Owner"
+			}
+		}
+	});
+  });
+
+function p_del(id) { 
+    var msg = "您真的确定要删除 ID=" + id +" 的纪录吗？\n\n若Comment中有其他人回复则无法删除\n\n\n请确认！"; 
+    if (confirm(msg)==true){ 
+       return true; 
+   }else{ 
+       return false; 
+   } 
+} 
+
+function reminder_type_change() { 
+        if ($("#RemindType").val()=='M')
+        { 
+           $("#week_div").hide();
+           $("#month_div").show();
+           $("#RemindInterval").show();
+           $("#RemindEndDate").show();
+           $("#RemindCounter").show();
+        }
+        if ($("#RemindType").val()=='W')
+        { 
+           $("#week_div").show();
+           $("#month_div").hide();
+           $("#RemindInterval").show();
+           $("#RemindEndDate").show();
+           $("#RemindCounter").show();
+        } 
+        if ($("#RemindType").val()=='D')
+        { 
+           $("#week_div").show();
+           $("#month_div").hide();
+           $("#RemindInterval").show();
+           $("#RemindEndDate").show();
+           $("#RemindCounter").show();
+        } 
+        if ($("#RemindType").val()=='F')
+        { 
+           $("#RemindInterval").hide();
+           $("#RemindEndDate").hide();
+           $("#RemindCounter").hide();
+           $("#month_div").hide();
+           $("#week_div").hide();
+        } 
+        if ($("#RemindType").val()=='')
+        { 
+           $("#week_div").hide();
+           $("#month_div").hide();
+           $("#RemindInterval").hide();
+           $("#RemindEndDate").hide();
+           $("#RemindCounter").hide();
+        } 
+} 
+
+  </script>
+  </head>
+<body >
+
+    <h2>
+     $bz_nav
+    </h2>
+ <br /><br /><br />   
+<table  class="listing" id="myAssignedTable"  name="myAssignedTable">
+    <thead>
+        <tr>
+            <th>ID</th><th>Headline</th><th>Submitter</th><th>Start_Time</th><th>End_Time</th><th>Type</th><th>Detail</th><th>Counter</th><th>Interval</th><th>State</th><th>Operation</th>
+        </tr>
+    </thead>
+    <tr py:for="row in ReminderRows">
+        <td class="sel" width="40">${row.ID}</td>
+        <td class="sel">${row.Headline}</td>
+        <td class="sel">${row.Submitter}</td>
+        <td class="sel"><label py:if="row.RemindStartDate">${row.RemindStartDate}</label></td>
+        <td class="sel"><label py:if="row.RemindEndDate">${row.RemindEndDate}</label></td>
+        <td class="sel"><label py:if="row.RemindType=='M'">月</label><label py:if="row.RemindType=='W'">周</label><label py:if="row.RemindType=='D'">双周</label><label py:if="row.RemindType=='F'">到期</label></td>
+        <td class="sel" py:if="row.RemindType=='M'">${row.RemindMonth[1:-1]}</td>
+        <td class="sel" py:if="row.RemindType=='W' or row.RemindType=='D' ">${row.RemindWeek[1:-1]}</td>
+        <td class="sel" py:if="row.RemindType=='F' or  row.RemindType==None or row.RemindType==''"> </td>
+        <td class="sel">${row.RemindCounter}</td>
+        <td class="sel">${row.RemindInterval}</td>
+        <td class="sel">${row.State}</td>
+        <td class="sel"><a  py:if="row.Submitter==CurrentUser" href="${SiteRoot}task/reminder/${row.ID}#comment_div">edit</a>&nbsp;&nbsp;<a   py:if="row.Submitter==CurrentUser" href="${SiteRoot}task/reminder/${row.ID}?action=del" onclick="javascript:return p_del(${row.ID})">del</a>&nbsp;&nbsp;<a   py:if="row.Submitter==CurrentUser" href="${SiteRoot}task/reminder/${row.ID}?action=disable">disable</a></td>
+    </tr>
+</table>
+
+<br />
+
+    <form class="mod" id="SubmitForm" method="post" action="">
+      <fieldset style="width:800px">
+        <legend>New/Edit Reminder</legend>
+        <table>
+             <tr align='left'>
+                 <td align='left'>ID: ${CurrentRow.ID}</td> 
+                 <td align='left'></td> 
+                 <td align='left'><input type="hidden" value="${CurrentRow.ID}" name="reminder_ID" /></td> 
+                 <td align='left' colspan="3" ><input type="hidden" value="${CurrentRow.Deliver}" name="reminder_Deliver" /></td> 
+             </tr>
+             <tr>
+                 <td >提醒标题:
+                 </td>
+                 <td colspan="5" align="left">
+                    <input type="text" id="Headline" name="Headline" size="90" value="${CurrentRow.Headline}"/>
+                 </td>   
+             </tr>
+             <tr>
+                <td >EmailTo:
+                 </td>
+                 <td colspan="5"  align="left">
+                    <input type="text" id="EmailTo" name="EmailTo" size="90" value="${CurrentRow.EmailTo and CurrentRow.EmailTo[0]==',' and CurrentRow.EmailTo[-1]==',' and CurrentRow.EmailTo[1:-1] or CurrentRow.EmailTo}"/>
+                 </td>   
+             </tr>
+             <tr>
+                <td >EmailCc:
+                 </td>
+                 <td colspan="5"  align="left">
+                    <input type="text" id="EmailCc" name="EmailCc" size="90" value="${CurrentRow.EmailCc and CurrentRow.EmailCc[0]==',' and CurrentRow.EmailCc[-1]==',' and CurrentRow.EmailCc[1:-1] or CurrentRow.EmailCc}"/>
+                 </td>   
+             </tr>             
+             <tr> 
+                <td >提醒类型:
+                 </td>
+                   <td colspan="5" align="left">
+                    <select id="RemindType" name="RemindType"   onchange="javascript:reminder_type_change();">
+                        <option value=""></option>
+                        <option id="M" value="M"  selected="${'M'==CurrentRow.RemindType or None}">月</option>
+                        <option id="W" value="W" selected="${'W'==CurrentRow.RemindType or None}" >周</option>
+                        <option id="D" value="D"   selected="${'D'==CurrentRow.RemindType or None}">双周</option>
+                        <option id="F" value="F"   selected="${'F'==CurrentRow.RemindType or None}">到期</option>
+                    </select>
+                 </td>   
+             </tr>
+             <tr id="week_div" style="display:none" > 
+                   <td colspan="6">提醒日历:  &nbsp;&nbsp;
+                        周一<input type="Checkbox" id="RemindWeek" name="RemindWeek"   value="1" checked="${'1' in CurrentRow.RemindWeek or None}" /> &nbsp;&nbsp;
+                        周二<input type="Checkbox" id="RemindWeek" name="RemindWeek"   value="2" checked="${'2' in CurrentRow.RemindWeek or None}"/>&nbsp;&nbsp;
+                        周三<input type="Checkbox" id="RemindWeek" name="RemindWeek"   value="3" checked="${'3' in CurrentRow.RemindWeek or None}"/>&nbsp;&nbsp;
+                        周四<input type="Checkbox" id="RemindWeek" name="RemindWeek"   value="4" checked="${'4' in CurrentRow.RemindWeek or None}"/>&nbsp;&nbsp;
+                        周五<input type="Checkbox" id="RemindWeek" name="RemindWeek"   value="5" checked="${'5' in CurrentRow.RemindWeek or None}"/>&nbsp;&nbsp;
+                        周六<input type="Checkbox" id="RemindWeek" name="RemindWeek"   value="6" checked="${'6' in CurrentRow.RemindWeek or None}"/>&nbsp;&nbsp;
+                        周日<input type="Checkbox" id="RemindWeek" name="RemindWeek"   value="7" checked="${'7' in CurrentRow.RemindWeek or None}"/>
+                 </td>   
+             </tr>
+             <tr id="month_div" style="display:none"> 
+                   <td colspan="6">提醒日历:  &nbsp;&nbsp;
+                        1<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="1" checked="${',1,' in CurrentRow.RemindMonth or None}" /> &nbsp;&nbsp;
+                        2<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="2" checked="${',2,' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        3<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="3" checked="${',3,' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        4<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="4" checked="${',4,' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        5<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="5" checked="${',5,' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        6<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="6" checked="${',6,' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        7<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="7" checked="${',7,' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        8<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="8" checked="${',8,' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        9<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="9" checked="${',9,' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        10<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="10" checked="${'10' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;<br />
+                        11<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="11" checked="${'11' in CurrentRow.RemindMonth or None}"/> &nbsp;&nbsp;
+                        12<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="12" checked="${'12' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        13<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="13" checked="${'13' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        14<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="14" checked="${'14' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        15<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="15" checked="${'15' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        16<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="16" checked="${'16' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        17<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="17" checked="${'17' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        18<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="18" checked="${'18' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        19<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="19" checked="${'19' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        20<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="20" checked="${'20' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;<br />
+                        21<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="21" checked="${'21' in CurrentRow.RemindMonth or None}"/> &nbsp;&nbsp;
+                        22<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="22" checked="${'22' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        23<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="23" checked="${'23' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        24<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="24" checked="${'24' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        25<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="25" checked="${'25' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        26<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="26" checked="${'26' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        27<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="27" checked="${'27' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        28<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="28" checked="${'28' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        29<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="29" checked="${'29' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        30<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="30" checked="${'30' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                        31<input type="Checkbox" id="RemindMonth" name="RemindMonth" value="31" checked="${'31' in CurrentRow.RemindMonth or None}"/>&nbsp;&nbsp;
+                 </td>   
+             </tr>
+              <tr>
+                 <td>开始时间:</td>
+                 <td><input type="text" id="RemindStartDate" name="RemindStartDate" size="12" value="${CurrentRow.RemindStartDate}"/></td>
+                 <td >提醒次数:</td>
+                 <td ><input type="text" id="RemindCounter" name="RemindCounter" size="6" value="${CurrentRow.RemindCounter}"/></td>
+                 <td>提醒间隔(小时):<input type="text" id="RemindInterval" name="RemindInterval" size="6" value="${CurrentRow.RemindInterval}"/></td>
+                 <td >结束时间:<input type="text" id="RemindEndDate" name="RemindEndDate" size="12" value="${CurrentRow.RemindEndDate}"/></td>
+              </tr>            
+	</table>
+      </fieldset>
+        <br /><input type="submit" value="Submit" /> &nbsp;&nbsp;&nbsp;&nbsp; <input type="button" value="Cancel" onclick="javascript:location.href='${SiteRoot}task/reminder/'"/> 
+    </form>
+    <a   name="comment_div"></a>
+<br /><br /><br />
+</body>
+</html>

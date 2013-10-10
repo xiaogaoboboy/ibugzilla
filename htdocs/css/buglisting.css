@@ -1,0 +1,46 @@
+/* Styles for tabular buglistings such as those used for displaying directory
+   contents and report results. */
+table.buglisting {
+ clear: both;
+ border-bottom: 1px solid #d7d7d7;
+ border-collapse: collapse;
+ border-spacing: 0;
+ margin-top: 1em;
+ width: 700px;
+background-color: #fcfcfc;
+}
+table.buglisting th { text-align: left; padding: 0 1em .1em 0; font-size: 12px }
+table.buglisting thead tr { background: #f7f7f0 }
+table.buglisting thead th {
+ border: 1px solid #d7d7d7;
+ border-bottom-color: #999;
+ font-size: 11px;
+ font-weight: bold;
+ padding: 2px .5em;
+ vertical-align: bottom;
+ white-space: nowrap;
+}
+table.buglisting thead th :link:hover, table.buglisting thead th :visited:hover {
+ background-color: transparent;
+}
+table.buglisting thead th a { border: none; padding-right: 12px }
+table.buglisting th.asc a, table.buglisting th.desc a {
+ font-weight: bold;
+ background-position: 100% 50%;
+ background-repeat: no-repeat;
+}
+table.buglisting th.asc a { background-image: url(../asc.png) }
+table.buglisting th.desc a { background-image: url(../desc.png) }
+table.buglisting tbody td, table.buglisting tbody th {
+ border: 1px dotted #ccc;
+ padding: .3em .5em;
+ vertical-align: top;
+}
+table.buglisting tbody td a:hover, table.buglisting tbody th a:hover {
+ background-color: transparent;
+}
+table.buglisting tbody tr { border-top: 1px solid #ddd }
+table.buglisting tbody tr.even { background-color: #fcfcfc }
+table.buglisting tbody tr.odd { background-color: #f7f7f7 }
+table.buglisting tbody tr:hover { background: #eed !important }
+table.buglisting tbody tr.focus { background: #ddf !important }

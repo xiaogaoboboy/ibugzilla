@@ -1,0 +1,179 @@
+﻿
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+  <head>
+    <title>Query</title>
+  <script>
+  $(document).ready(function()
+  {
+        /*$('#field_YearMonth_Start').datepicker({dateFormat:'yy-mm'});*/
+        /*$('#field_YearMonth_End').datepicker({dateFormat:'yy-mm'});*/
+        /* $column;*/
+        /*$pie;*/
+        /*$dep_column;*/
+        $('#large2').dataTable({ "aaSorting": [[ 0, "desc" ]],"sPaginationType": "full_numbers","bJQueryUI": false});
+  });
+  </script>
+  </head>
+<body>
+    <h2>
+     $bz_nav
+    </h2>
+
+<h3></h3>
+
+   <form  class="mod" id="SubmitForm" method="post" action="">
+
+   
+		    $setting
+<!--		    
+   <table  id="myTodoTable1" name="myTodoTable1"  width="800px" align="left" >
+	<tr>
+        <td style="background: #eee;width:100px">开始年月</td>
+        <td > <input type="text" id="field_YearMonth_Start" name="field_YearMonth_Start" size="10" value="${worklog_report.req.field_YearMonth_Start}"/></td>  
+        <td style="background: #eee;width:100px">结束年月</td>
+        <td > <input type="text" id="field_YearMonth_End" name="field_YearMonth_End" size="10" value="${worklog_report.req.field_YearMonth_End}"/></td>  
+   </tr>
+   	<tr>
+        <td style="background: #eee;width:100px">项目</td>
+		<td colspan='3'> 
+                  <label py:for="a_Project in worklog_report.myProjects">
+                        <input type="checkbox" id="field_Project_Name" name="field_Project_Name" value="${a_Project}"  checked="${a_Project  in   worklog_report.Select_Projects or None}"/>${a_Project}
+                    </label>
+		</td>
+   </tr>
+   	<tr>
+        <td style="background: #eee;width:100px">部门</td>
+		<td colspan='3'> 
+                  <label py:for="row in worklog_report.all_department">
+                        <input type="checkbox" id="field_DepID2" name="field_DepID2" value="${row}"  checked="${row  in   worklog_report.myDepartment or None}"/>${row}
+                    </label>
+		</td>
+    </tr>
+
+    <tr>
+        <td style="background: #eee;width:100px">Style</td>
+		<td colspan='3'> 
+                <input type="checkbox"  id="Show_Style_Product" name="Show_Style_Product"  checked="${worklog_report.Show_Style_Product or None}"/>Product
+                <input type="checkbox"  id="Show_Style_Department" name="Show_Style_Department"  checked="${worklog_report.Show_Style_Department or None}" />Department
+		</td>
+    </tr>
+
+    <tr>
+        <td style="background: #eee;width:100px">Data Type</td>
+		<td colspan='3'> 
+                <input type="radio"  id="Data_Type" name="Data_Type"  value='Percent'  checked="${worklog_report.Data_Type=='Percent' or None}"/>Percent
+                <input type="radio"  id="Data_Type" name="Data_Type"  value='Hours'  checked="${worklog_report.Data_Type=='Hours' or None}" />Hours
+		</td>
+    </tr>
+    
+	<tr>
+		<td colspan="4"> 
+        <br />
+            <input type="submit" value="Submit Query" name="Submit_Query" id="Submit_Query" /> 
+            <br /><br />
+		</td>
+    </tr>
+    </table>
+-->
+   </form>
+
+
+
+  <table  id="myTodoTable" name="myTodoTable"   style="width: 95%;" align="left"  class="listing"> 
+<!--  
+    <tr py:if="worklog_report.Show_Style_Product=='on'  or worklog_report.Show_Style_Department=='' ">
+     <td style="width: 75%;">
+           <div style="width: 100%; margin-left:0px;">${worklog_report.column_table}</div>    </td >
+    <td style="width: 25%;">
+        <div style="width: 100%; margin-left:0px;">${worklog_report.pie_table}</div>
+     </td >
+   </tr>
+-->
+
+<!--    <tr py:if="worklog_report.Show_Style_Product=='on'   or worklog_report.Show_Style_Department=='' ">-->
+  <tr>
+    <!--  <td style="width: 75%;">-->
+     <td style="width: 100%;">
+           <div id="container_column" style="width: 100%; height: $Heightx+px; margin-left:0px;"></div>
+    </td >
+<!--    
+    <td style="width: 25%;">
+        <div id="container_pie" style="width: 100%; height: $Heightx+px; margin-left:0px;"></div>
+     </td >
+-->     
+   </tr>
+   
+<!--   
+    <tr py:if="worklog_report.Show_Style_Department=='on'    or worklog_report.Show_Style_Product=='' ">
+     <td style="width: 75%;">
+           <div style="width: 100%; margin-left:0px;">${worklog_report.column_table_dep}</div>
+    </td >
+    <td style="width: 25%;">
+         <div style="width: 100%; margin-left:0px;">${worklog_report.pie_table_dep}</div>
+     </td >
+   </tr>
+   
+     <tr py:if="worklog_report.Show_Style_Department=='on'   or worklog_report.Show_Style_Product==''  ">
+     <td style="width: 75%;">
+           <div id="dep_container_column" style="width: 100%; height: ${worklog_report.Height}px; margin-left:0px;"></div>
+    </td >
+    <td style="width: 25%;">
+        <div id="dep_container_pie" style="width: 100%; height: ${worklog_report.Height}px; margin-left:0px;"></div>
+     </td >
+   </tr>
+-->   
+
+   <tr>
+  <td >        
+   </td >
+   </tr>
+   
+   </table>
+
+<table id="large2" name="large2" class="listing">
+		<thead>
+		<tr>
+		    <py:for each="excol in excols">
+		    <th width="75">
+                ${excol}
+		    </th>
+		    </py:for>
+		</tr>
+		</thead>
+		
+		<tbody>
+		<py:for each="exrow in exrows">
+		<tr>
+		    <py:for each="excol in exrow">
+			    <td>
+			  ${excol}		
+			    </td>
+		    </py:for>   
+		</tr>
+		</py:for>
+		</tbody>  
+</table>
+
+<table width="100%" align="center"  border="0px">
+
+   <tr>
+      <td valign="top">
+		<p><a href="javascript: d.openAll();">open all</a> | <a href="javascript: d.closeAll();">close all</a></p>
+	    <script type="text/javascript">		
+            $dtree_js		
+	    </script>
+      </td>     
+   </tr>   
+</table>
+
+
+<br /><br />
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Highcharts Example</title>
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript">
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                type: 'column'
+            },
+            title: {
+                text: 'SC7702 Human Cost'
+            },
+            subtitle: {
+                text: 'Source: imanage.sprd.com'
+            },
+            xAxis: {
+                categories: [
+                    'PS',
+                    'DSP',
+                    'PLD',
+                    'ASIC',
+                    'HW',
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Man Day'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                backgroundColor: '#FFFFFF',
+                align: 'left',
+                verticalAlign: 'top',
+                x: 100,
+                y: 70,
+                floating: true,
+                shadow: true
+            },
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.x +': '+ this.y +' Man Day';
+                }
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+                series: [{
+                name: 'PS',
+                data: [149.9, 271.5, 406.4, 329.2, 544.0]
+    
+            }, {
+                name: 'DSP',
+                data: [83.6, 478.8, 198.5, 393.4, 706.0]
+    
+            }, {
+                name: 'PLD',
+                data: [648.9, 238.8, 139.3, 441.4, 347.0]
+    
+            }, {
+                name: 'Test',
+                data: [742.4, 333.2, 534.5, 539.7, 352.6]
+    
+            }]
+        });
+    });
+    
+});
+		</script>
+	</head>
+	<body>
+<script src="../../js/highcharts.js"></script>
+<script src="../../js/modules/exporting.js"></script>
+
+<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+
+	</body>
+</html>

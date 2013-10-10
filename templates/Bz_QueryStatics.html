@@ -1,0 +1,172 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:i18n="http://genshi.edgewall.org/i18n"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+  <head>
+      <title>Schema</title>
+        <script>
+  $(document).ready(function() {
+  //$('#field_test_report_ueit_Test_Date_S').datepicker({dateFormat:'yy-mm-dd'});
+  //$('#field_test_report_ueit_Test_Date_E').datepicker({dateFormat:'yy-mm-dd'});
+        $('#BugStaticsStart').datepicker({dateFormat:'yy-mm-dd'});
+        $('#BugStaticsEnd').datepicker({dateFormat:'yy-mm-dd'});   
+        $line;
+  $('#large').dataTable({ "aaSorting": [[ 0, "desc" ]],"sPaginationType": "full_numbers","bJQueryUI": false});
+  $('#large2').dataTable({ "aaSorting": [[ 0, "desc" ]],"sPaginationType": "full_numbers","bJQueryUI": false});
+  });
+    </script>
+
+      
+  </head>
+
+<body>
+
+    <h2>
+     $bz_nav
+    </h2>
+<h1> 
+$bz_sub_nav
+</h1>
+<form method="post" id="form">
+
+
+		    $ex_basic_query
+		    
+		   <!-- $discription_queryurl
+		    $discription_query
+
+		<table id="large" name="large" width="1200px" align="center" class="listing">-->
+
+  <table  id="myStaticsTable" name="myStaticsTable"   style="width: 95%;" align="left"  class="listing"> 
+<!--  
+    <tr py:if="worklog_report.Show_Style_Product=='on'  or worklog_report.Show_Style_Department=='' ">
+     <td style="width: 75%;">
+           <div style="width: 100%; margin-left:0px;">${worklog_report.column_table}</div>    </td >
+    <td style="width: 25%;">
+        <div style="width: 100%; margin-left:0px;">${worklog_report.pie_table}</div>
+     </td >
+   </tr>
+-->
+
+<!--    <tr py:if="worklog_report.Show_Style_Product=='on'   or worklog_report.Show_Style_Department=='' ">-->
+  <tr>
+    <!--  <td style="width: 75%;">-->
+     <td style="width: 100%;">
+           <div id="container_line" style="width: 100%; height: $Heightx+px; margin-left:0px;"></div>
+    </td >
+<!--    
+    <td style="width: 25%;">
+        <div id="container_pie" style="width: 100%; height: $Heightx+px; margin-left:0px;"></div>
+     </td >
+-->     
+   </tr>
+   
+<!--   
+    <tr py:if="worklog_report.Show_Style_Department=='on'    or worklog_report.Show_Style_Product=='' ">
+     <td style="width: 75%;">
+           <div style="width: 100%; margin-left:0px;">${worklog_report.column_table_dep}</div>
+    </td >
+    <td style="width: 25%;">
+         <div style="width: 100%; margin-left:0px;">${worklog_report.pie_table_dep}</div>
+     </td >
+   </tr>
+   
+     <tr py:if="worklog_report.Show_Style_Department=='on'   or worklog_report.Show_Style_Product==''  ">
+     <td style="width: 75%;">
+           <div id="dep_container_column" style="width: 100%; height: ${worklog_report.Height}px; margin-left:0px;"></div>
+    </td >
+    <td style="width: 25%;">
+        <div id="dep_container_pie" style="width: 100%; height: ${worklog_report.Height}px; margin-left:0px;"></div>
+     </td >
+   </tr>
+-->   
+
+   <tr>
+  <td >        
+   </td >
+   </tr>   
+   </table>
+
+
+<table id="large2" name="large2" class="listing">
+		<thead>
+		<tr>
+		    <py:for each="excol in excols">
+		    <th width="75">
+                ${excol}
+		    </th>
+		    </py:for>
+		</tr>
+		</thead>
+		
+		<tbody>
+		<py:for each="exrow in exrows">
+		<tr>
+		    <py:for each="excol in exrow">
+			    <td>
+			  ${excol}		
+			    </td>
+		    </py:for>   
+		</tr>
+		</py:for>
+		</tbody>  
+</table>
+
+<br />
+<br />
+		
+<table id="large" name="large" class="listing">
+		<thead>
+		<tr>
+		    <py:for each="col in cols">
+		    <th width="75">
+                ${col}
+		    </th>
+		    </py:for>
+		</tr>
+		</thead>
+		
+		<tbody>
+		<py:for each="row in rows">
+		<tr>
+		    <py:for each="idx,col in enumerate(row)">
+			    <td>
+			<py:choose test="">
+			<py:when test="idx == 0">
+			  <a href="http://10.0.6.58/bugzilla/show_bug.cgi?id=${col}" >${col}</a>
+			</py:when>
+			<py:otherwise>
+			  ${col}
+			</py:otherwise>
+			</py:choose>		
+			    </td>
+		    </py:for>   
+		</tr>
+		</py:for>
+		</tbody>
+		
+</table>
+
+
+<br />
+<br />
+<!--
+<table cellpadding="5" cellspacing="5">
+<tr>
+	<td valign="top" style="border-right: 1px #ccc solid;">
+	<py:for each="table in tables">${table}<br /></py:for>
+	</td>
+</tr>
+</table>-->
+
+</form>
+<!--</div>-->
+
+</body>
+
+</html>
+

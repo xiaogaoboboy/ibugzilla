@@ -1,0 +1,116 @@
+﻿
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+  <head>
+    <title>iManage - iData</title>
+  <script>
+  $(document).ready(function()
+  {
+    $('#field_Start_Date').datepicker({dateFormat:'yy-mm-dd'});
+    $('#field_End_Date').datepicker({dateFormat:'yy-mm-dd'});
+
+  });
+
+  </script>
+  </head>
+<body>
+
+<DIV style=" border: 0px outset #996;width:910px;position: relative;margin-left:0px;margin-right:auto;">
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/home">Home </a>
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/report?">Query </a>
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/myproject">myProject </a>
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/submitrate">SubmitRate </a>
+&nbsp;|&nbsp;
+</DIV>
+
+<br /><br /><br /><br />
+
+<DIV  style="border: 0px outset #996;width:90%;position: relative;margin-left:20px;margin-right:auto;">
+   <form  class="mod" id="SubmitForm" method="post" action="">
+   <table  id="myTodoTable1" name="myTodoTable1"  width="90%" align="left" >
+	<tr>
+        <td ></td>
+        <td >Start Date</td>
+        <td > <input type="text" id="field_Start_Date" name="field_Start_Date" size="10" value="${worklog_report.field_Start_Date or None}"/></td>  
+        <td >End Date</td>
+        <td > <input type="text" id="field_End_Date" name="field_End_Date" size="10" value="${worklog_report.field_End_Date or None}"/></td>  
+		<td > <input type="submit" value="Submit Query" name="Submit_Query" id="Submit_Query" /> </td>
+   </tr>
+    </table>
+   </form>
+</DIV>
+
+<br /><br /><br /><br />
+<DIV  style="border: 0px outset #996;width:90%;position: relative;margin-left:20px;margin-right:auto;">
+   <h2>DEP Level 1</h2>
+   <table  class="listing"  id="myTodoTable" name="myTodoTable">
+       <tr>
+                 <th>DEP_Name</th>
+                 <th>UserCount</th>
+                 <th>UserRate</th>
+                 <th>Submitted_Rate</th>
+       </tr>
+        <tr py:for="row in worklog_report.DEP_LEVEL_1_Data">
+            <td >${row['DEP_Name'] }</td>
+            <td >${row['UserCount'] }</td>
+             <td >${row['UserRate'] }</td>
+            <td >${row['Submitted_Rate'] }</td>
+        </tr>
+    </table>
+  </DIV>  
+  
+
+<br /><br /><br /><br />
+<DIV  style="border: 0px outset #996;width:90%;position: relative;margin-left:20px;margin-right:auto;">
+   <h2>DEP Level 2</h2>
+   <table  class="listing"  id="myTodoTable" name="myTodoTable">
+       <tr>
+                 <th>DEP_Name</th>
+                 <th>UserCount</th>
+                 <th>UserRate</th>
+                 <th>Submitted_Rate</th>
+       </tr>
+        <tr py:for="row in worklog_report.DEP_LEVEL_2_Data">
+            <td >${row['DEP_Name'] }</td>
+            <td >${row['UserCount'] }</td>
+             <td >${row['UserRate'] }</td>
+            <td >${row['Submitted_Rate'] }</td>
+        </tr>
+    </table>
+  </DIV> 
+  
+  
+<br /><br /><br /><br />
+<DIV  style="border: 0px outset #996;width:90%;position: relative;margin-left:20px;margin-right:auto;">
+   <h2>DEP Level 3</h2>
+   <table  class="listing"  id="myTodoTable" name="myTodoTable">
+       <tr>
+                 <th>DEP_Name</th>
+                 <th>UserCount</th>
+                 <th>UserRate</th>
+                 <th>Submitted_Rate</th>
+       </tr>
+        <tr py:for="row in worklog_report.DEP_LEVEL_3_Data">
+            <td >${row['DEP_Name'] }</td>
+            <td >${row['UserCount'] }</td>
+             <td >${row['UserRate'] }</td>
+            <td >${row['Submitted_Rate'] }</td>
+        </tr>
+    </table>
+  </DIV> 
+
+
+ 
+  
+<br /><br />
+
+
+<br /><br /><br /><br />
+
+</body>
+</html>

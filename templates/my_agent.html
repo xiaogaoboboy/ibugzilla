@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+
+  <head>
+    <title>Agent Setting </title>
+  </head>
+
+  <body>
+
+<div  id="tabcontent">
+
+<H1>Agent Setting</H1>
+    <form class="mod" id="modbasic" method="post" action="">
+      <fieldset>
+        <legend>Agent Setting</legend>
+        <div class="field">
+           <UL>
+                <LI py:for="row in worklog_report.Filler"><input type="radio" name="ID"  value="${row.ID}" />${row.Filler}</LI>
+                  <LI>&nbsp;<input type="submit" name="Filler_del"  value="Del" /></LI>
+                  <LI style="list-style-type:none;">&nbsp;</LI>
+		  <LI><input type="text" id="field_Filler" name="field_Filler" class="autoClass" size="10" value=""/>&nbsp;&nbsp;<input type="submit" name="Filler_add"  value="Add"  /></LI>
+           </UL>
+        </div>         
+      </fieldset>
+    </form>
+
+</div>
+  </body>
+
+</html>

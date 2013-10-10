@@ -1,0 +1,55 @@
+﻿
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+  <head>
+    <title>工时统计</title>
+  </head>
+<body>
+
+<DIV style=" border: 0px outset #996;width:910px;position: relative;margin-left:0px;margin-right:auto;">
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/home">Home </a>
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/report?">Query </a>
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/myproject">myProject </a>
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/submitrate">SubmitRate </a>
+&nbsp;|&nbsp;
+</DIV>
+
+<br /><br /><br />
+
+<DIV style="border: 0px outset #996;position: relative;margin-left:20px;margin-right:auto;">
+
+    <H1> 未填写Task/Worklog人员列表</H1>
+    <H3> 补填请使用 Worklog 方式填写</H3>
+   <table  id="myTodoTable" name="myTodoTable"     align="center"  class="listing">
+        <tr>
+            <th >ID</th>
+            <th >Chinese Name</th>
+            <th >English Name</th>
+            <th >Dep1</th>
+            <th >Dep2</th>
+            <th >Dep3</th>
+            <th >Year-Month</th>
+         </tr>
+    <tr py:for="a_user in worklog_report.all_nofill">
+        <td >${a_user.User.Badge}</td>
+        <td >${a_user.User.Name}</td>
+        <td >${a_user.User.EName}</td>
+        <td >${a_user.User.DepID1}</td>
+        <td >${a_user.User.DepID2}</td>
+        <td >${a_user.User.DepID3}</td>
+        <td >${a_user.YM}</td>
+     </tr>
+     
+   </table>
+
+</DIV>
+
+<br /><br />
+
+</body>
+</html>

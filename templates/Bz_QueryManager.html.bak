@@ -1,0 +1,361 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:i18n="http://genshi.edgewall.org/i18n"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+  <head>
+  
+      <title>Schema</title>        
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />       
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.1/jquery.dataTables.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.1/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.1/css/jquery.dataTables.css" />    
+<link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.1/css/jquery.dataTables_themeroller.css" />  
+
+
+
+<script>
+	$(document).ready(function() {
+		$('#chfieldfrom').datepicker({dateFormat:'yy-mm-dd'});
+		$('#chfieldto').datepicker({dateFormat:'yy-mm-dd'});   
+		$('#large').dataTable({ "aaSorting": [[ 0, "desc" ]],"sPaginationType": "full_numbers","bJQueryUI": false});
+		$('#large2').dataTable({ "aaSorting": [[ 0, "desc" ]],"sPaginationType": "full_numbers","bJQueryUI": false});
+	});
+</script>   
+
+  </head>
+
+<body>
+
+    <h2>
+     $bz_nav
+    </h2>
+<h1></h1>
+
+<form class="mod" id="SubmitForm" method="post" action="">
+<table  class="listing" id="myAssignedTable"  name="myAssignedTable" width="800px">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Headline</th>
+            <th>Submitter</th>
+            <th>syn_query Time</th>
+            <th>Operation</th>            
+            <th>BUG统计输出结果</th>
+            <th>周期变化趋势图表</th>
+        </tr>
+    </thead>
+    <tr py:for="row in BugzQueryRows">
+        <td class="sel" width="40">${row.ID}</td>
+        <td class="sel">${row.name}</td>
+        <td class="sel">${row.ower}</td>
+        <td class="sel">${row.csv_time}</td>
+        <td class="sel">
+        <a  py:if="row.ower==CurrentUser" href="${SiteRoot}?ID=${row.ID}">edit</a>&nbsp;&nbsp;
+        <a  py:if="row.ower==CurrentUser" href="${SiteRoot}" onclick="javascript:Bz_Action(${row.ID}, 'del', '${path_info}')">del</a>&nbsp;&nbsp;  
+        <a  py:if="row.ower==CurrentUser" href="${SiteRoot}" onclick="javascript:Bz_Action(${row.ID}, 'syn_query', '${path_info}')">syn_query</a>&nbsp;&nbsp;  
+        <a  py:if="row.ower==CurrentUser" href="http://tracsrv/idata/Bugzilla/query/Bz_EmailManager?QueryID=${row.ID}" target='_blank' >bind</a>&nbsp;&nbsp; 
+        </td>
+        <td class="sel">
+        <a  py:if="row.ower==CurrentUser" href="${row.bz_url}" target='_blank'>BugzillaResult</a>&nbsp;&nbsp;&nbsp;   
+        <a  py:if="row.ower==CurrentUser and row.csv_time!=''" href="${row.csv_url}" >CSV</a>&nbsp;&nbsp;&nbsp;
+        <a  py:if="row.ower==CurrentUser and row.csv_time!=''" href="${SiteRoot}?ID=${row.ID}" target='_blank' >iBugzillaResult</a>&nbsp;&nbsp;&nbsp;               
+        </td>
+        <td class="sel">${row.csv_history}</td>
+    </tr>
+</table>
+<br />
+
+<fieldset style="width:800px">
+<legend>New/Edit Query</legend>
+<table width="800px" align="left">
+             <tr align='left'>
+                 <td align='left'>ID: ${CurrentRow.ID}</td> 
+                 <td align='left'></td> 
+                 <td align='left'><input type="hidden" value="${CurrentRow.ID}" name="ID" /></td> 
+                 <td align='left' colspan="3" ><input type="hidden" value="${CurrentRow.Deliver}" name="reminder_Deliver" /></td> 
+             </tr>
+             <tr>
+                 <td >Headline: </td>
+                 <td colspan="5" align="left">
+                    <input type="text" id="name" name="name" size="90" value="${CurrentRow.name}"/>
+                 </td>   
+             </tr>
+<!--
+             <tr>
+                <td >Owner:</td>
+                 <td colspan="5" align="left">
+                    <input type="text" id="ower" name="ower" size="90" value="${CurrentRow.ower and CurrentRow.ower[0]==',' and CurrentRow.ower[-1]==',' and CurrentRow.ower[1:-1] or CurrentRow.ower}"/>
+                 </td>   
+             </tr>
+-->            
+              <tr>
+                <td >TreeLevel1:</td>
+                <td >
+                    <select id="Level0" name="Level0">
+                        <option id="PersonnalQuery" value="PersonnalQuery" selected="${'PersonnalQuery'==CurrentRow.Level0 or None}">PersonnalQuery</option>
+                        <option id="CommonQuery" value="CommonQuery" selected="${'CommonQuery'==CurrentRow.Level0 or None}">CommonQuery</option>
+                    </select>
+                 </td> 
+                <td >Level2:</td>
+                 <td>
+                    <input type="text" id="Level1" name="Level1" size="20" value="${CurrentRow.Level1}"/>
+                 </td> 
+                
+                <td >Level3:</td>
+                 <td>
+                    <input type="text" id="Level2" name="Level2" size="20" value="${CurrentRow.Level2}"/>
+                 </td>  
+                
+              </tr>              
+  
+</table>	
+</fieldset> 
+
+
+<fieldset style="width:800px">
+<legend>Bugzilla Query Rule</legend>
+<table width="800px" align="left">
+ 
+<!--
+     <tr>
+        <td >Assignee:</td>
+         <td colspan="5" align="left">
+            <input type="text" name="assigned_to" size="90" value="${CurrentRow.assigned_to and CurrentRow.assigned_to[0]==',' and CurrentRow.assigned_to[-1]==',' and CurrentRow.assigned_to[1:-1] or CurrentRow.assigned_to}"/>
+         </td>   
+     </tr>
+     <tr>
+        <td >Reporter:</td>
+         <td colspan="5" align="left">
+            <input type="text" name="reporter" size="90" value="${CurrentRow.reporter and CurrentRow.reporter[0]==',' and CurrentRow.reporter[-1]==',' and CurrentRow.reporter[1:-1] or CurrentRow.reporter}"/>
+         </td>   
+     </tr> 
+-->     
+      <tr>
+        <td >TimeField:</td>
+        <td >
+            <select id="chfield" name="chfield">
+		      <option value=""></option>		     
+		      <option py:for="a_chfield in TimeFields" value="$a_chfield" selected="${a_chfield==CurrentRow.chfield or None}">$a_chfield</option>
+            </select>
+         </td> 
+         <td>StartDate:</td>
+         <td><input type="text" id="chfieldfrom" name="chfieldfrom" size="12" value="${CurrentRow.chfieldfrom}"/></td>
+         <td >EndDate:</td>
+         <td><input type="text" id="chfieldto" name="chfieldto" size="12" value="${CurrentRow.chfieldto or 'Now'}"/></td>
+      </tr> 
+
+	<tr>
+	<td >StringField:</td>
+	<td align="left">
+	    <select id="f1" name="f1">		
+	      <option value=""></option>
+	      <option py:for="a_v in StringFields" value="$a_v" selected="${a_v==CurrentRow.f1 or None}">$a_v</option>
+	    </select>
+	 </td> 
+	<td >Operator:</td>
+	<td align="left">
+	    <select id="o1" name="o1">	
+	      <option value=""></option>
+	      <option py:for="a_v in StringOperations" value="$a_v" selected="${a_v==CurrentRow.o1 or None}">$a_v</option>
+	    </select>
+	 </td> 
+	<td >Value:</td>
+	 <td align="left">
+	    <input type="text" id="v1" name="v1" size="20" value="${CurrentRow.v1}"/>
+	 </td> 	 
+	</tr> 
+
+	<tr>
+	<td >Field1:</td>
+	<td align="left">
+	    <select id="f2" name="f2">		     
+	      <option py:for="a_v in field_s" value="$a_v" selected="${a_v==CurrentRow.f2 or None}">$a_v</option>
+	    </select>
+	 </td> 
+	<td >Operator1:</td>
+	<td align="left">
+	    <select id="o2" name="o2">	     
+	      <option py:for="a_v in operation_s" value="$a_v" selected="${a_v==CurrentRow.o2 or None}">$a_v</option>
+	    </select>
+	 </td> 
+	<td >Value1:</td>
+	 <td align="left">
+	    <input type="text" id="v2" name="v2" size="20" value="${CurrentRow.v2}"/>
+	 </td> 	 
+	</tr> 
+
+	<tr>
+	<td >Field2:</td>
+	<td align="left">
+	    <select id="f3" name="f3">		     
+	      <option py:for="a_v in field_s" value="$a_v" selected="${a_v==CurrentRow.f3 or None}">$a_v</option>
+	    </select>
+	 </td> 
+	<td >Operator2:</td>
+	<td align="left">
+	    <select id="o3" name="o3">	     
+	      <option py:for="a_v in operation_s" value="$a_v" selected="${a_v==CurrentRow.o3 or None}">$a_v</option>
+	    </select>
+	 </td> 
+	<td >Value2:</td>
+	 <td align="left">
+	    <input type="text" id="v3" name="v3" size="20" value="${CurrentRow.v3}"/>
+	 </td> 	 
+	</tr> 
+      
+	 <tr> 
+	    <td style="background: #eee;width:100px">Bugzilla Field:  &nbsp;&nbsp;</td> 
+		<td colspan="5" align="left"> 
+		<p >
+			<label py:for="a_listfield in BugzillaFields">
+			<input type="Checkbox" id="columnlist" name="columnlist" value="$a_listfield" checked="${a_listfield in CurrentRow.columnlist or a_listfield=='short_desc' or None}" /> $a_listfield &nbsp;&nbsp;
+			</label>
+		</p>            
+	    </td> 
+	 </tr> 
+ 
+	 <tr> 
+	    <td style="background: #eee;width:100px">iBugzilla Field:  &nbsp;&nbsp;</td> 
+		<td colspan="5" align="left"> 
+		<p >
+			<label py:for="a_listfield in iBugzillaFields">
+			<input type="Checkbox" id="ibugz_col" name="ibugz_col" value="$a_listfield" checked="${a_listfield in CurrentRow.ibugz_col or None}" /> $a_listfield &nbsp;&nbsp;
+			</label>
+		</p> 
+	    </td> 
+	 </tr>  
+	 
+	 <tr> 
+	    <td style="background: #eee;width:100px">iBugzilla Statics:  &nbsp;&nbsp;</td> 
+		<td colspan="5" align="left"> 
+		<p >
+			<label py:for="a_listfield in iBugzillaStatics">
+			<input type="Checkbox" id="custom_statics" name="custom_statics" value="$a_listfield" checked="${a_listfield in CurrentRow.custom_statics or None}" /> $a_listfield &nbsp;&nbsp;
+			</label>
+		</p> 
+	    </td> 
+	 </tr>  
+	
+	 <tr>  	 
+<label>Product:</label>
+      <select name="product" id="product" multiple="multiple" size="7">
+          <option value=""></option>
+          <option py:for="a_product in all_product" value="$a_product" selected="${a_product in CurrentRow.product or None}">$a_product</option>
+      </select>     
+<label>Component:</label>
+      <select name="component" id="component" multiple="multiple" size="7"> 
+          <option value=""></option>
+          <option py:for="a_component in all_component" value="$a_component" selected="${a_component in CurrentRow.component or None}">$a_component</option>
+      </select>  
+	 </tr>       
+<br />  
+	 <tr>  
+<label>Status:</label>
+      <select name="bug_status" id="bug_status" multiple="multiple" size="7"> 
+          <option value=""></option>
+          <option py:for="a_status in all_status" value="$a_status" selected="${a_status in CurrentRow.bug_status or None}">$a_status</option>
+      </select>  
+<label>Severity:</label>
+      <select name="bug_severity" id="bug_severity" multiple="multiple" size="7"> 
+          <option value=""></option>
+          <option py:for="a_severity in all_severity" value="$a_severity" selected="${a_severity in CurrentRow.bug_severity or None}">$a_severity</option>
+      </select>  
+<label>ComeFrom:</label>
+      <select name="cf_come_from" id="cf_come_from" multiple="multiple" size="7"> 
+          <option value=""></option>
+          <option py:for="a_cf_come_from in all_cf_come_from" value="$a_cf_come_from" selected="${a_cf_come_from in CurrentRow.cf_come_from or None}">$a_cf_come_from</option>
+      </select>    
+	 </tr>      
+</table>	
+</fieldset>
+	    
+
+<input type="submit" name="Query" value="Query" /> &nbsp;&nbsp;&nbsp;&nbsp; 
+<input type="submit" name="Save" value="Save" /> &nbsp;&nbsp;&nbsp;&nbsp; 
+<input type="button" value="Cancel" onclick="javascript:location.href='${SiteRoot}'"/> 
+<br />
+<br />	
+		
+<table id="large2" name="large2" class="listing">
+		<thead>
+		<tr>
+		    <py:for each="col in cols2">
+		    <th width="75">
+                ${col}
+		    </th>
+		    </py:for>
+		</tr>
+		</thead>
+		
+		<tbody>
+		<py:for each="row2 in rows2">
+		<tr>
+		    <py:for each="idx,col in enumerate(row2)">
+			    <td>
+			<py:choose test="">
+			<py:when test="idx == 0">
+			  <!--<a href="http://172.16.0.58/bugzilla/show_bug.cgi?id=${col}"  target="_blank">${col}</a>-->
+			  ${col}
+			</py:when>
+			<py:otherwise>
+			  ${col}
+			</py:otherwise>
+			</py:choose>		
+			    </td>
+		    </py:for>   
+		</tr>
+		</py:for>
+		</tbody>
+		
+</table>
+
+<table id="large" name="large" class="listing">
+		<thead>
+		<tr>
+		    <py:for each="col in cols">
+		    <th width="75">
+                ${col}
+		    </th>
+		    </py:for>
+		</tr>
+		</thead>
+		
+		<tbody>
+		<py:for each="row in rows">
+		<tr>
+		    <py:for each="idx,col in enumerate(row)">
+			    <td>
+			<py:choose test="">
+			<py:when test="idx == 0">
+			  <a href="http://10.0.6.58/bugzilla/show_bug.cgi?id=${col}"  target="_blank">${col}</a>
+			</py:when>
+			<py:otherwise>
+			  ${col}
+			</py:otherwise>
+			</py:choose>		
+			    </td>
+		    </py:for>   
+		</tr>
+		</py:for>
+		</tbody>
+		
+</table>
+      <fieldset id="email"> 
+		    $email
+	  </fieldset>
+<br />
+<br />
+
+
+</form>
+</body>
+
+</html>
+

@@ -1,0 +1,74 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:i18n="http://genshi.edgewall.org/i18n"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+  <head>
+      <title>Query</title>
+        <script>
+  $(document).ready(function() {
+        $line;
+  });
+    </script>
+
+  </head>
+
+<body>
+
+    <h2>
+     $bz_nav
+    </h2>
+
+
+<a href="http://tracsrv/chrome/site/Mozilla Firefox.rar" target="_blank">Use firefox!</a>
+
+  <table  id="myStaticsTable" name="myStaticsTable"   style="width: 95%;" align="left"  class="listing"> 
+
+
+<!--    <tr py:if="worklog_report.Show_Style_Product=='on'   or worklog_report.Show_Style_Department=='' ">-->
+  <tr>
+    <!--  <td style="width: 75%;">-->
+     <td style="width: 100%;">
+           <div id="container_line" style="width: 100%; height: $Heightx+px; margin-left:0px;"></div>
+    </td >
+<!--    
+    <td style="width: 25%;">
+        <div id="container_pie" style="width: 100%; height: $Heightx+px; margin-left:0px;"></div>
+     </td >
+-->     
+   </tr>
+   
+<!--   
+    <tr py:if="worklog_report.Show_Style_Department=='on'    or worklog_report.Show_Style_Product=='' ">
+     <td style="width: 75%;">
+           <div style="width: 100%; margin-left:0px;">${worklog_report.column_table_dep}</div>
+    </td >
+    <td style="width: 25%;">
+         <div style="width: 100%; margin-left:0px;">${worklog_report.pie_table_dep}</div>
+     </td >
+   </tr>
+   
+     <tr py:if="worklog_report.Show_Style_Department=='on'   or worklog_report.Show_Style_Product==''  ">
+     <td style="width: 75%;">
+           <div id="dep_container_column" style="width: 100%; height: ${worklog_report.Height}px; margin-left:0px;"></div>
+    </td >
+    <td style="width: 25%;">
+        <div id="dep_container_pie" style="width: 100%; height: ${worklog_report.Height}px; margin-left:0px;"></div>
+     </td >
+   </tr>
+-->   
+
+   <tr>
+  <td >        
+   </td >
+   </tr>   
+   </table>
+
+<br /><br /><br /><br />
+<br /><br /><br /><br />
+</body>
+</html>
+

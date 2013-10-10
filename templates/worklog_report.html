@@ -1,0 +1,51 @@
+﻿
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+  <head>
+    <title>工时统计</title>
+  </head>
+<body>
+
+
+<DIV style="border: 0px outset #996;position: relative;margin-left:20px;margin-right:auto;">
+    <h1>${worklog_report.task_obj.Headline}</h1>
+
+   <table  id="myTodoTable" name="myTodoTable"     align="center"  class="listing">
+    <thead>
+        <tr>
+            <th >ID</th>
+            <th >Chinese Name</th>
+            <th >English Name</th>
+            <th >Department</th>
+            <th >Year-Month</th>
+            <th py:for="item in worklog_report.myProjects">${item}</th>
+            <th >TOTAL %</th>
+         </tr>
+     </thead>
+    <tr py:for="a_user in worklog_report.myUsers">
+        <td >${a_user.Badge}</td>
+        <td >${a_user.Name}</td>
+        <td >${a_user.EName}</td>
+        <td >${a_user.DepID3}</td>
+        <td >${worklog_report.task_obj.YearMonth}</td>
+        <td py:for="item in worklog_report.myProjects" >
+                <input py:if="worklog_report.task_obj.State=='Submitted'" style="width:16px;vertical-align:middle;" id="${a_user.Badge}" name="${a_user.Badge}" value="${worklog_report.all_worklog[a_user.Badge][item.encode('utf8')]}" maxlength="3" onchange="sum(this,'${worklog_report.task_obj.ID}','${a_user.Badge}','${item}','${CurrentUser}');"/>
+                <label py:if="worklog_report.task_obj.State=='Finished'" >${worklog_report.all_worklog[a_user.Badge][item.decode('utf8')]}</label>
+        </td>
+        <td py:if="worklog_report.all_worklog[a_user.Badge]['total']==100" id="total_${a_user.Badge}" name="total_${a_user.Badge}" >${worklog_report.all_worklog[a_user.Badge]['total']}</td>
+        <td py:if="worklog_report.all_worklog[a_user.Badge]['total']!=100" id="total_${a_user.Badge}" name="total_${a_user.Badge}" bgcolor="ff0000">${worklog_report.all_worklog[a_user.Badge]['total']}</td>
+     </tr>
+     
+   </table>
+
+</DIV>
+
+<br /><br />
+
+</body>
+</html>

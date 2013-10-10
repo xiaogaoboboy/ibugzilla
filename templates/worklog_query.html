@@ -1,0 +1,162 @@
+﻿
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+  <head>
+    <title>Query</title>
+  <script>
+  $(document).ready(function()
+  {
+        $('#field_YearMonth_Start').datepicker({dateFormat:'yy-mm'});
+        $('#field_YearMonth_End').datepicker({dateFormat:'yy-mm'});
+         ${worklog_report.column};
+         ${worklog_report.pie};
+        ${worklog_report.dep_column};
+        ${worklog_report.dep_pie};
+  });
+  </script>
+  </head>
+<body>
+
+<DIV style=" border: 0px outset #996;width:910px;position: relative;margin-left:0px;margin-right:auto;">
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/home">Home </a>
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/report?">Query </a>
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/myproject">myProject </a>
+&nbsp;|&nbsp;<a href="${SiteRoot}/itask/submitrate">SubmitRate </a>
+&nbsp;|&nbsp;
+</DIV>
+
+<br /><br />
+
+   <form  class="mod" id="SubmitForm" method="post" action="">
+   <table  id="myTodoTable1" name="myTodoTable1"  width="800px" align="left" >
+	<tr>
+        <td style="background: #eee;width:100px">开始年月</td>
+        <td > <input type="text" id="field_YearMonth_Start" name="field_YearMonth_Start" size="10" value="${worklog_report.req.field_YearMonth_Start}"/></td>  
+        <td style="background: #eee;width:100px">结束年月</td>
+        <td > <input type="text" id="field_YearMonth_End" name="field_YearMonth_End" size="10" value="${worklog_report.req.field_YearMonth_End}"/></td>  
+   </tr>
+   	<tr>
+        <td style="background: #eee;width:100px">项目</td>
+		<td colspan='3'> 
+                  <label py:for="a_Project in worklog_report.myProjects">
+                        <input type="checkbox" id="field_Project_Name" name="field_Project_Name" value="${a_Project}"  checked="${a_Project  in   worklog_report.Select_Projects or None}"/>${a_Project}
+                    </label>
+		</td>
+   </tr>
+   	<tr>
+        <td style="background: #eee;width:100px">部门</td>
+		<td colspan='3'> 
+                  <label py:for="row in worklog_report.all_department">
+                        <input type="checkbox" id="field_DepID2" name="field_DepID2" value="${row}"  checked="${row  in   worklog_report.myDepartment or None}"/>${row}
+                    </label>
+		</td>
+    </tr>
+
+    <tr>
+        <td style="background: #eee;width:100px">Style</td>
+		<td colspan='3'> 
+                <input type="checkbox"  id="Show_Style_Product" name="Show_Style_Product"  checked="${worklog_report.Show_Style_Product or None}"/>Product
+                <input type="checkbox"  id="Show_Style_Department" name="Show_Style_Department"  checked="${worklog_report.Show_Style_Department or None}" />Department
+		</td>
+    </tr>
+
+    <tr>
+        <td style="background: #eee;width:100px">Data Type</td>
+		<td colspan='3'> 
+                <input type="radio"  id="Data_Type" name="Data_Type"  value='Percent'  checked="${worklog_report.Data_Type=='Percent' or None}"/>Percent
+                <input type="radio"  id="Data_Type" name="Data_Type"  value='Hours'  checked="${worklog_report.Data_Type=='Hours' or None}" />Hours
+		</td>
+    </tr>
+    
+	<tr>
+		<td colspan="4"> 
+        <br />
+            <input type="submit" value="Submit Query" name="Submit_Query" id="Submit_Query" />  &nbsp;&nbsp;
+            <input type="submit" value="Validate" name="Validate" id="Validate" />&nbsp;&nbsp;
+            <input type="submit" value="Create Excel" name="Create_Excel" id="Create_Excel" /> 
+            
+            <br /><br />
+		</td>
+    </tr>
+    </table>
+   </form>
+
+  <table  id="myTodoTable" name="myTodoTable"   style="width: 95%;" align="left"  class="listing"> 
+    <tr py:if="worklog_report.Show_Style_Product=='on'  or worklog_report.Show_Style_Department=='' ">
+     <td style="width: 75%;">
+           <div style="width: 100%; margin-left:0px;">${worklog_report.column_table}</div>
+    </td >
+    <td style="width: 25%;">
+        <div style="width: 100%; margin-left:0px;">${worklog_report.pie_table}</div>
+     </td >
+   </tr>
+  <tr py:if="worklog_report.Show_Style_Product=='on'   or worklog_report.Show_Style_Department=='' ">
+     <td style="width: 75%;">
+           <div id="container_column" style="width: 100%; height: ${worklog_report.Height}px; margin-left:0px;"></div>
+    </td >
+    <td style="width: 25%;">
+        <div id="container_pie" style="width: 100%; height: ${worklog_report.Height}px; margin-left:0px;"></div>
+     </td >
+   </tr>
+    <tr py:if="worklog_report.Show_Style_Department=='on'    or worklog_report.Show_Style_Product=='' ">
+     <td style="width: 75%;">
+           <div style="width: 100%; margin-left:0px;">${worklog_report.column_table_dep}</div>
+    </td >
+    <td style="width: 25%;">
+         <div style="width: 100%; margin-left:0px;">${worklog_report.pie_table_dep}</div>
+     </td >
+   </tr>
+     <tr py:if="worklog_report.Show_Style_Department=='on'   or worklog_report.Show_Style_Product==''  ">
+     <td style="width: 75%;">
+           <div id="dep_container_column" style="width: 100%; height: ${worklog_report.Height}px; margin-left:0px;"></div>
+    </td >
+    <td style="width: 25%;">
+        <div id="dep_container_pie" style="width: 100%; height: ${worklog_report.Height}px; margin-left:0px;"></div>
+     </td >
+   </tr>
+   <tr>
+  <td >
+        
+   </td >
+   </tr>
+   </table>
+   <p>&nbsp;</p>
+   <table  id="myTodoTable" name="myTodoTable"   width="100%" align="center"  class="listing">
+    <thead>
+        <tr>
+            <th >ID</th>
+            <th >Chinese Name</th>
+            <th >English Name</th>
+            <th >Dep1</th>
+            <th >Dep2</th>
+            <th >Dep3</th>
+            <th >Year-Month</th>
+            <th py:for="row in worklog_report.fill_Projects">${row}</th>
+         </tr>
+     </thead>
+    <tr py:for="a_worklog in worklog_report.fill_worklog_show">
+        <td >${a_worklog.User_SN}</td>
+        <td >${a_worklog.UserName_CN}</td>
+        <td >${a_worklog.UserName}</td>
+        <td >${a_worklog.DepID1}</td>
+        <td >${a_worklog.DepID2}</td>
+        <td >${a_worklog.DepID3}</td>
+        <td >${a_worklog.Year_Months}</td>
+        <td py:for="row in worklog_report.fill_Projects">
+                <py:if test="(a_worklog.User_SN + '_' + a_worklog.Year_Months + '_'   +  row) in worklog_report.fill_worklog_project_show.keys()">
+                        ${worklog_report.fill_worklog_project_show[a_worklog.User_SN + '_' + a_worklog.Year_Months + '_'   +  row]}
+                </py:if>
+        </td>
+     </tr>
+     </table>
+
+
+<br /><br />
+
+</body>
+</html>

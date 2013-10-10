@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+  <head>
+    <title>iBugzilla</title>
+  </head>
+
+  <body>
+    <h2>
+     $bz_nav
+    </h2>
+      	
+    <br /><br />
+    <div  style="width:80%;margin-left:auto;margin-right:auto;background: #ddd;" >
+      <h1>iBugzilla系统简介</h1>
+      <hr style="border:1px dashed;height:1px;margin:0;color:#000000"/>
+      iBugzilla 是 iManage 管理平台的一个组件，目前实现对Bugziila数据库的查询和定制各种统计功能，以及自动周期性邮件发送查询和统计结果。<br />
+    </div>
+<!--
+    <br /><br />
+    <div  style="width:80%;margin-left:auto;margin-right:auto;background: #eee;" >
+     <h1>术语说明 </h1>
+     Agent：发起新任务人员必须配置，内容为需要填写工时统计的二级部门经理，或二级部门助理。如果是部门助理，则助理还需要进一步设置Agent为各子部门经理。<br />
+     <br />
+    </div >
+     <br /><br />
+-->
+     <div  style="width:80%;margin-left:auto;margin-right:auto;background: #eee;" >
+      <h1>菜单介绍</h1>
+      <image src="/chrome/hw/images/iBugzilla_MENU.bmp" /><br />
+      <LI>查询树 :  查询规则的树形显示
+      </LI><br /><br />
+      <LI>查询管理  :  设定查询规则，可以实时发送邮件
+      </LI><br /><br />
+      <LI>邮件管理  :  设定邮件发送规则，并绑定相应的查询规则
+      </LI><br /><br />
+            
+      <LI>Help  :  使用帮助
+      </LI><br /><br />
+
+      <h1>“查询管理”页面</h1>
+      该页面管理用户定义的查询条件，可以保存、查看、更新、删除用户定义的查询条件，查询完成之后，还可以选择是否将结果邮件发送给指定用户
+      <br /><br />     	
+
+      <image src="/chrome/hw/images/iBugzilla_TreeBox.bmp" /><br />  
+      <LI>TreeLevel: 对应设定在查询树上位置， Level1中PersonnalQuery个人查询（只本人可见）,CommonQuery公共查询（所有可见）
+      </LI><br /><br />
+      
+      <image src="/chrome/hw/images/iBugzilla_QueryRule.bmp" /><br />  
+      	      
+     
+      <LI>Field: the items being searched.
+      </LI><br />
+      <LI>Operator: the comparison operator.
+      </LI><br />   
+      <LI>Value: the value to which the field is being compared. 
+      </LI><br />      
+       
+      <LI>Bugzilla Field:  bugzilla 数据库的原始字段，勾选后加入查询列表.
+      </LI><br /> 
+      <br />     
+
+      <image src="/chrome/hw/images/iBugzilla_QueryAction.bmp" /><br />
+      <LI>edit: 修改一个保存的查询单
+      </LI><br />   	
+      <LI>del: 删除一个保存的查询单
+      </LI><br />   
+      <LI>syn_query: 从bugzilla数据库查询，可能会比较慢，查询完后会更新syn_query Time
+      </LI><br />      
+      <LI>bind: 新建一个邮件任务来绑定该查询单
+      </LI><br /> 
+                     	
+      <LI>查询完成后，会显示发送邮件的编辑框,可以实时的发送邮件
+      </LI><br /><br />      	
+      <LI>查询结果有3种变现形式
+      	（1）CSV：点击该链接就可以导出结果到Excel表格, 方便用户做后期数据处理
+      	（2）iBugzillaResult：包括所有在iBugzilla选择的Field，点击该链接就可以跳转到QuerySynchoniseTime这个时间点的查询结果
+      	（3）BugzillaResult：不包括iBugzilla Field，点击该链接就可以跳转到Bugzilla原始查询页面    	
+      </LI><br /><br />
+
+      <h1>iBugzilla特色1： 特殊字段（扩展Bugzilla）</h1>
+      <image src="/chrome/hw/images/iBugzilla_Statics.bmp" /><br />
+      <LI>ChangedataToNow:  针对bug，计算changedata到当前时间的差值，单位：天 
+      </LI><br /><br />
+
+      <LI>NeedInfoCount:  针对bug，计算NeedInfo的次数，单位：次
+      </LI><br /><br />
+      
+      <LI>ChangeOwnerCount:  针对bug，计算Assignee被改变的次数，单位：次
+      </LI><br /><br /> 
+
+
+      <h1>iBugzilla特色2： 定制统计</h1>
+      <LI>各模块CR总数及模块责任人(By Product):  针对Product，统计各模块（component）的CR数量及对应相关模块负责人 
+      </LI><br /><br />
+      
+      <h1>iBugzilla特色3： 保存的查询规则和邮件提醒关联</h1>
+      <image src="/chrome/hw/images/iBugzilla_Remind.bmp" /><br />
+      <LI>Owner:  发送邮件的人员列表
+      </LI><br />      	
+      <LI>Type:  可以按月/周/Deadline来设定
+      </LI><br />
+      <LI>BugzQueryID:  设定需要绑定的查询单子ID
+      </LI><br />
+      <LI>RemindStartDate:  设定发送邮件的时间
+      </LI><br />
+      <LI>RemindEndDate:  该日期后，该邮件单子无效
+      </LI><br />      
+      
+            
+<!--
+      <h1>使用方法</h1>
+      
+      <LI>Login  : 使用域账号登陆系统，用户名为小写，名与姓之间用.分隔， 如<B> mingjian.liu  </B><br />
+            分公司到上海出差的同事，请使用您在上海的域帐户登陆操作系统(如果没有上海域帐号，请上海IT协助创建)，然后使用您原来的帐号登陆 iManage 系统即可
+      </LI><br /><br />
+
+      <LI>定制项目列表:<br />
+      	<image src="/chrome/hw/images/iData_Project.bmp" height="450" width="600"/><br />
+      </LI><br /><br />
+      
+      <LI>发起任务:每个月FIN/HR 发起一个新的填写任务！<br />
+      	发起任务前必须先配置好代理人，代理人为二级部门的部门助理或二级部门经理，如果代理人为助理，则助理还需要设置相应子部门的部门经理<br />
+      	<image src="/chrome/hw/images/iData_Agant.bmp" height="390" width="400"/><br />
+      	<image src="/chrome/hw/images/iData_Task.bmp" height="290" width="600"/><br />
+      		输入标题(6),选择一个年月(7.) 提交后即可生成一个新任务<br />
+      		点击图中 1. ：对已提交的Task 进行<br />
+      		点击图中 2. ：结束Task ,关闭后相关人员无法提交数据，保护历史数据免受更改，<br />
+      		点击图中 3. ：发送邮件，提醒相关人员尽快填写工时统计，<br />
+      		点击图中 4. ：加载上月数据，<br />
+      		点击图中 5. ：进入进度显示页面，<br />
+      </LI><br /><br />
+
+      <LI>察看填写进度: 任务显示页面点击任务标题，进入进度显示页面<br />
+      	<image src="/chrome/hw/images/iData_Processing.bmp" height="190" width="600"/><br />
+      		显示每个代理人名下的工时统计填写进度<br />
+      		点击相应进度条，进入填写页面 <br />
+      </LI><br /><br />
+
+      <LI>填写工时统计: 1. 如果该员工使用iTask 系统，则会 从iTask 中自动提取的工时信息；２：手工填写工时百分比信息。如果手工填写，自动获取的信息不再有效，除非删除该项目百分比信息<br />
+      	<image src="/chrome/hw/images/iData_Fill.bmp" height="190" width="600"/><br />
+      		填写某个人在某个项目投入工时百分比，数值为0-100; 某个人的所有项目工时信息总和应为 100<br />
+
+      </LI><br /><br />
+
+      <LI>查询工时统计: <br />
+      	输入查询条件<br />
+      	提交后返回查询结果及按项目和部门维度人力统计图，单位为人/月，同时也会返回相应数据报表<br />
+      	<image src="/chrome/hw/images/iData_Query.bmp" height="190" width="600"/><br />
+      	<image src="/chrome/hw/images/iData_Query_1.bmp" height="190" width="600"/><br />
+      	<image src="/chrome/hw/images/iData_Query_2.bmp" /><br />
+      	<image src="/chrome/hw/images/iData_Query_3.bmp" /><br />
+      	<image src="/chrome/hw/images/iData_Query_4.bmp" /><br />
+      	<image src="/chrome/hw/images/iData_Query_5.bmp" height="450" width="600"/><br />
+
+      </LI><br /><br />
+       
+
+      <LI>Help  :  使用帮助
+      </LI><br /><br />
+-->      
+    </div>
+ 
+
+ 
+    <br /><br /><br /><br />
+    <div  style="width:20%;margin-left:auto;margin-right:50px;" >
+      iManage创作团队
+      </div>
+<br /><br /><br /><br />
+  </body>
+</html>

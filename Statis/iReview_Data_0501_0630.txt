@@ -1,0 +1,123 @@
+
+
+iReview Statistics 2013-05-01---2013-06-30
+ 
+ 
+ 
+Department_Name_Level_1       		All_User	Reviews		PreReviews	Usage_Rate
+
+Traicio                       		44		0		0		0
+General Supporting            		40		0		0		0
+CTO Office                    		57		0		0		0
+IR                            		1		0		0		0
+SPRD TJ                       		4		0		0		0
+Finance                       		19		0		0		0
+SPRD TPE                      		1		0		0		0
+OPS                           		81		0		0		0
+SPRD India                    		2		0		0		0
+Marketing                     		11		0		0		0
+Platform SW                   		319		31		384		11.6
+Comm Sys                      		251		161		353		19.12
+ASIC                          		231		8		0		0.43
+Sales                         		47		0		0		0
+Legal                         		9		0		0		0
+Product                       		611		82		442		9.33
+SPRD US                       		39		0		0		0
+CEO Office                    		14		0		0		0
+ 
+ 
+ 
+Department_Name_Level_2              		All_User	Reviews		PreReviews	Usage_Rate
+
+Platform SW | T2I                  		39		0		0		0
+Platform SW | Andr Framwork        		31		0		0		0
+Platform SW | CM                   		5		0		0		0
+Platform SW | Andr Apps            		31		0		4		3.23
+Platform SW | APPS                 		39		4		6		12.82
+Platform SW | SPD                  		53		17		164		24.53
+Platform SW | PLD_MP               		8		1		0		12.5
+Platform SW | Mocor Platform       		80		7		209		18.75
+Platform SW | Arch                 		4		0		0		0
+Platform SW | Customization        		29		2		1		6.9
+Comm Sys | PS                      		138		46		148		20.29
+Comm Sys | PHY                     		100		115		205		20
+Comm Sys | SW PM                   		10		0		0		0
+Comm Sys | SAE                     		3		0		0		0
+ASIC |                             		9		8		0		11.11
+ASIC | IC BJ                       		53		0		0		0
+ASIC | IC Test                     		3		0		0		0
+ASIC | Analog                      		56		0		0		0
+ASIC | IC                          		1		0		0		0
+ASIC | Baseband Driver             		24		0		0		0
+ASIC | IC SH                       		57		0		0		0
+ASIC | System MM                   		28		0		0		0
+Product | FAE_T                    		128		5		10		4.69
+Product | System                   		11		0		0		0
+Product | FAE_W                    		153		0		61		5.23
+Product | Test                     		171		30		330		19.3
+Product | Product QA               		2		73		0		100
+Product | HW                       		113		3		13		3.54
+Product | PM                       		33		3		28		12.12
+ 
+ 
+ 
+Department_Name_Level_3                           		All_User	Reviews		PreReviews	Usage_Rate
+
+Platform SW | APPS | APPS                         		38		4		6		13.16
+Platform SW | APPS | APPS_TJ                      		1		0		0		0
+Platform SW | SPD | SPD                           		28		2		0		7.14
+Platform SW | SPD | SPD_GK                        		2		0		0		0
+Platform SW | SPD | SPD_SZ                        		23		15		164		47.83
+Platform SW | PLD_MP | PLD_MP                     		8		1		0		12.5
+Platform SW | Mocor Platform | Refs               		48		5		197		27.08
+Platform SW | Mocor Platform | Multimedia         		29		2		4		3.45
+Platform SW | Mocor Platform | Mocor Platform     		3		0		8		33.33
+Platform SW | Customization | Customization       		29		2		1		6.9
+Comm Sys | PS | PS_GSM                            		27		2		3		3.7
+Comm Sys | PS | PS_TD                             		55		25		113		23.64
+Comm Sys | PS | PS                                		1		0		0		0
+Comm Sys | PS | PS_LTE                            		16		6		16		25
+Comm Sys | PS | PS_WCDMA                          		8		0		0		0
+Comm Sys | PS | PS_LTE CD                         		9		8		15		77.78
+Comm Sys | PS | PS_WCDMA_MP                       		14		0		0		0
+Comm Sys | PS | PS_LTE_TJ                         		8		5		1		37.5
+Comm Sys | PHY | PHY                              		1		0		0		0
+Comm Sys | PHY | L1_GSM                           		6		17		2		33.33
+Comm Sys | PHY | DSP_GSM                          		17		7		13		17.65
+Comm Sys | PHY | DSP_DM                           		12		0		0		0
+Comm Sys | PHY | Audio                            		4		0		0		0
+Comm Sys | PHY | DSP_TD                           		22		14		14		9.09
+Comm Sys | PHY | DSP_LTE                          		10		0		0		0
+Comm Sys | PHY | DSP_TD_GK                        		15		0		0		0
+Comm Sys | PHY | L1_WCDMA_MP                      		7		47		121		100
+Comm Sys | PHY | L1_WCDMA                         		6		30		55		100
+ASIC |  | Tech                                    		3		8		0		33.33
+ASIC |  | IC Test                                 		5		0		0		0
+ASIC |  | ASIC                                    		1		0		0		0
+Product | FAE_T | FAE_T_SH                        		42		4		9		9.52
+Product | FAE_T | FAE_T_GK                        		33		1		0		3.03
+Product | FAE_T | FAE_T_CPM                       		9		0		1		11.11
+Product | FAE_T | FAE_T_CHJ                       		25		0		0		0
+Product | FAE_T | FAE_T_SZ                        		15		0		0		0
+Product | FAE_T | FAE_T_TJ                        		4		0		0		0
+Product | Test | Test_SH                          		104		29		311		30.77
+Product | Test | Test_TJ                          		33		1		19		3.03
+Product | Test | Test_GK                          		17		0		0		0
+Product | Test | India_Test                       		11		0		0		0
+Product | Test | Test  SZ                         		5		0		0		0
+Product | Test | Test                             		1		0		0		0
+Product | Product QA | Product QA                 		2		73		0		100
+Product | HW | HW_RF                              		31		0		0		0
+Product | HW | HW                                 		6		2		4		16.67
+Product | HW | HW_BB                              		26		0		7		3.85
+Product | HW | HW_PCBA                            		15		0		0		0
+Product | HW | HW_EVT                             		2		0		0		0
+Product | HW | HW_LAB                             		3		0		0		0
+Product | HW | HW_AE                              		4		0		0		0
+Product | HW | HW_NPI                             		11		0		0		0
+Product | HW | HW_SZ                              		8		0		0		0
+Product | HW | HW_MP                              		6		1		2		33.33
+Product | HW | HW_GK                              		1		0		0		0
+Product | PM | PM                                 		31		3		28		12.9
+Product | PM | PM_SZ                              		1		0		0		0
+Product | PM | PM_GK                              		1		0		0		0
