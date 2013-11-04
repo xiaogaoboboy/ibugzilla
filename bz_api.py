@@ -455,33 +455,36 @@ class Bugz(object):
                             or a_field == 'f199':
                     qparams[a_field] = a_row[a_field]
                     is_null_flag = False                         
-                elif re.match(r"[f]\d", a_field) \
-                            or a_field == 'chfield':
-                        is_null_flag = False  
-                        for a_map in self.f1_map_table:
-                            if a_row[a_field] == a_map['ui']:
-                                if a_field == 'chfield':
-                                    qparams['f21'] = a_map['db']
-                                    qparams['f22'] = a_map['db']
-                                    qparams['o21'] = 'greaterthaneq'
-                                    qparams['o22'] = 'lessthaneq'
-                                else:
-                                    #if a_field == 'f1':
-                                    #    self.log.error("BG_SearchUrl2 qparams[a_field]=%s",qparams[a_field])                       
-                                                        
-                                    qparams[a_field] = a_map['db']
-                                    #self.log.error("BG_SearchUrl2 qparams[a_field]=%s",qparams[a_field])                       
-                        
+                elif a_field == 'chfield' and a_row[a_field] != '': 
+                    self.log.error("BG_SearchUrl2 %s=%s",a_field, a_row[a_field]) 
+                    self.log.error("BG_SearchUrl2 f1_map_table=%s",self.f1_map_table)                       
+                    for a_map in self.f1_map_table:
+                        if a_row[a_field] == a_map['ui']:
+                            qparams['f21'] = a_map['db']
+                            qparams['f22'] = a_map['db']  
+                            is_null_flag = False 
+                            self.log.error("BG_SearchUrl2 qparams['f21']=%s",qparams['f21']) 
+                elif a_field == 'chfieldfrom':
+                    qparams['v21'] = a_row[a_field]
+                    qparams['o21'] = 'greaterthaneq'
+                elif a_field == 'chfieldto': 
+                    qparams['v22'] = a_row[a_field]
+                    qparams['o22'] = 'lessthaneq'  
+
+                elif re.match(r"[f]\d", a_field):
+                    is_null_flag = False  
+                    for a_map in self.f1_map_table:
+                        if a_row[a_field] == a_map['ui']:
+                            #self.log.error("BG_SearchUrl2 qparams[a_field]=%s",qparams[a_field])                       
+                            qparams[a_field] = a_map['db']
+                            #self.log.error("BG_SearchUrl2 qparams[a_field]=%s",qparams[a_field])                                                               
                 elif re.match(r"[o]\d", a_field):                         
                     if a_row[a_field] != '---' and a_row[a_field] != '':
                         is_null_flag = False 
                         for a_map in self.o1_map_table:
                             if a_row[a_field] == a_map['ui']:
                                 qparams[a_field] = a_map['db']
-                elif a_field == 'chfieldfrom':
-                    qparams['v21'] = a_row[a_field]
-                elif a_field == 'chfieldto':                    
-                    qparams['v22'] = a_row[a_field] 
+                                
                 elif a_field == 'product_ower':     
                     #self.log.error("BG_SearchUrl2 [product_ower]=%s",a_row[a_field])
                     if len(a_row[a_field]) >0:

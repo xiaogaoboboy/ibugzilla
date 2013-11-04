@@ -392,12 +392,12 @@ def _P_Debug(env, req, bugz):
     return 
 
 def _M_QueryComon(env, req, bugz, data): 
-        data['all_product'] = bugz.all_product #Btag_select3('product') 
-        data['all_component'] = bugz.all_component#Btag_select3('component')
-        data['all_status'] = bugz.all_component#Btag_select3('bug_status')
-        data['all_severity'] = bugz.all_component#Btag_select3('bug_severity')
-        data['field_s'] = bugz.field_s#Btag_select3('f1')
-        data['operation_s'] = bugz.operation_s#Btag_select('o1')  
+        data['all_product'] = bugz.all_product 
+        data['all_component'] = bugz.all_component
+        data['all_status'] = bugz.all_status
+        data['all_severity'] = bugz.all_severity
+        data['field_s'] = bugz.field_s
+        data['operation_s'] = bugz.operation_s
         
         data['all_cf_come_from'] = ['Customer','Development Area','FAE','FT','Internal_Customer','PLDSQA','Test Area', 'TR_TEST','UEIT']#bugz.Btag_select('cf_come_from')        
         data['TimeFields'] = bz_gl.gl_TimeFields #bugz.Btag_select3('f1')
@@ -986,6 +986,8 @@ def _A_Submit(env, req, db_conn, table_name, a_values):
             ID = None
         else:
             a_values['ID'] = ID
+            #del
+            bz_utils._del_path(bz_gl.gl_csv_rootPath+ID)
             
         if table_name == bz_gl.gl_BugzQuery:
             a_table = bz_model.BugzQuery(ID, db_conn)

@@ -77,7 +77,7 @@ gl_StringOperations = ["is equal to", \
 #                        "cf_postponedate","cf_needinfodate", \
 #                        "cf_invaliddate", "cf_duplicatedate",\
 #                        "cf_reopendate"]
-gl_TimeFields = ["Changed", "Creationdate","ClosedDate", "FixedDate",  \
+gl_TimeFields = ["Changed", "Creation date","ClosedDate", "FixedDate",  \
                         "AssignedDate","RootCausedDate", \
                         "PostponeDate","NeedInfoDate", \
                         "InValidDate", "DuplicateDate",\
